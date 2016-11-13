@@ -2,12 +2,13 @@ template(){
     local _ZONE_=$1
     sed -e "s/_ZONE_/${_ZONE_}/g;" ZONE.template  > zones.${_ZONE_}
     sed -e "s/_ZONE_/${_ZONE_}/g;" QUERY.template > query.${_ZONE_}
-    cat <<EOF >> mgmt.key
+    cat <<EOF >> ${_ZONE_}.key
 key "${_ZONE_}.key" {
      algorithm hmac-md5;
      secret "aaaaaaaaaaaaaaaaaaaa";
 };
 EOF
+    cat ${_ZONE_}.key >> mgmt.key
     cat <<EOF >> named.conf
 zone "${_ZONE_}" {
 	type master;
@@ -57,5 +58,5 @@ for q in query.*
 do
     _ZONE_=$(echo $q | sed -e "s/query\.//")
     dig @localhost ${_ZONE_} soa
-    nsupdate -k nsupdate.key < $q
+    nsupdate -k ${_ZONE_}.key < $q
 done

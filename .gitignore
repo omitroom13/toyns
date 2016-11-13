@@ -48,4 +48,4 @@ __pycache__
 query.*
 zones.*
 named.conf
-mgmt.key
+*.key
