@@ -1,31 +1,31 @@
 include "/etc/bind/mgmt.key";
 
 options {
-     directory "/var/cache/bind";
-     pid-file  "/var/run/named/named.pid";
-     recursion           no;
-     notify              no;
-     auth-nxdomain       no;
-     dnssec-validation   no;
-     listen-on    port 53 {       any; };
-     listen-on-v6 port 53 {      none; };
-     allow-transfer       { 127.0.0.1; };
-     allow-update         { 127.0.0.1; };
-     allow-query          {       any; };
+    directory "/var/cache/bind";
+    pid-file  "/var/run/named/named.pid";
+    recursion           no;
+    notify              no;
+    auth-nxdomain       no;
+    dnssec-validation   no;
+    listen-on    port 53 {       any; };
+    listen-on-v6 port 53 {      none; };
+    allow-transfer       { 127.0.0.1; };
+    allow-update         { 127.0.0.1; };
+    allow-query          {       any; };
 };
 
 logging {
     channel "default-log" {
-            file "default.log" versions 5 size 10M;
-            severity debug;
-            print-time yes;
-            print-severity yes;
-            print-category yes;
+        file "default.log" versions 5 size 10M;
+        severity debug;
+        print-time yes;
+        print-severity yes;
+        print-category yes;
     };
     category default { "default-log"; };
 };
 
 controls {
-     inet 127.0.0.1 port 953 allow { 127.0.0.1; } keys { "rndc.key"; };
+    inet 127.0.0.1 port 953 allow { 127.0.0.1; } keys { "rndc.key"; };
 };
 
